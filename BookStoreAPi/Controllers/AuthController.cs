@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using BookStoreApi.Contracts.Requests;
+using BookStoreAPi.BL.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -12,14 +14,20 @@ namespace BookStoreAPi.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
+        private readonly IAuthManager _authManager;
 
-
+        public AuthController(IAuthManager authManager)
+        {
+            _authManager = authManager;
+        }
 
         [HttpPost("login")]
 
-        public async Task<IActionResult> Login()
+        public async Task<IActionResult> Login(LoginModel login)
         {
-            return Ok();
+            var loginResult = await _authManager.Login(login.Username.ToLower(), login.Password);
+
+            return loginResult.Success ? Ok(loginResult.Data) : BadRequest(loginResult.ErrorMessage);
         }
 
 

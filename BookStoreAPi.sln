@@ -3,7 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31729.503
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookStoreAPi", "BookStoreAPi\BookStoreAPi.csproj", "{DAF195AA-2C24-4CAD-B7AA-E07D1DE91F3C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookStoreAPi", "BookStoreAPi\BookStoreAPi.csproj", "{DAF195AA-2C24-4CAD-B7AA-E07D1DE91F3C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookStoreApi.Contracts", "BookStoreApi.Contracts\BookStoreApi.Contracts.csproj", "{D66A95B6-B3A7-4450-9577-D031F0F7F5F9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookStoreAPi.BL", "BookStoreAPi.BL\BookStoreAPi.BL.csproj", "{21B809CD-52E3-4618-BC70-F722579EA1AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookStoreAPi.DAL", "BookStoreAPi.DAL\BookStoreAPi.DAL.csproj", "{F634C829-BD95-41BB-BCCA-F1082EA65B13}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +21,18 @@ Global
 		{DAF195AA-2C24-4CAD-B7AA-E07D1DE91F3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DAF195AA-2C24-4CAD-B7AA-E07D1DE91F3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DAF195AA-2C24-4CAD-B7AA-E07D1DE91F3C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D66A95B6-B3A7-4450-9577-D031F0F7F5F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D66A95B6-B3A7-4450-9577-D031F0F7F5F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D66A95B6-B3A7-4450-9577-D031F0F7F5F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D66A95B6-B3A7-4450-9577-D031F0F7F5F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21B809CD-52E3-4618-BC70-F722579EA1AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21B809CD-52E3-4618-BC70-F722579EA1AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21B809CD-52E3-4618-BC70-F722579EA1AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21B809CD-52E3-4618-BC70-F722579EA1AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F634C829-BD95-41BB-BCCA-F1082EA65B13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F634C829-BD95-41BB-BCCA-F1082EA65B13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F634C829-BD95-41BB-BCCA-F1082EA65B13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F634C829-BD95-41BB-BCCA-F1082EA65B13}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
