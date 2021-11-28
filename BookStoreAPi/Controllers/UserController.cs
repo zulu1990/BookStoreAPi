@@ -28,66 +28,51 @@ namespace BookStoreAPi.Controllers
             return registrationResult.Success ? Ok(registrationResult.Data) : BadRequest(registrationResult.ErrorMessage);
         }
 
-
-        //[Authorize]
+        [Authorize]
         [HttpPost("add-to-cart")]
         public async Task<IActionResult> AddBooksToCart(AddToCart addToCart)
         {
-            //var userId = HttpContext.GetUserId();
-
-            var userId = 1;
-            addToCart.BookIdentifier = Guid.Parse("850B6B8A-2AE0-4B0E-9A15-2A57119CA3EE");
-            addToCart.Count = 2;
+            var userId = HttpContext.GetUserId();
 
             var result = await _userManager.AddBooksToCart(userId, addToCart);
 
             return result.Success? Ok(result.Data) : BadRequest(result.ErrorMessage);
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpPost("purchase-cart-items")]
         public async Task<IActionResult> PurchaseBooks()
         {
-            //var userId = HttpContext.GetUserId();
-
-            var userId = 1;
+            var userId = HttpContext.GetUserId();
 
             var result = await _userManager.PurchaseBooks(userId);
 
             return result.Success? NoContent() : BadRequest(result.ErrorMessage);
         }
 
-
-
-        //[Authorize]
+        [Authorize]
         [HttpGet("get-cart")]
         public async Task<IActionResult> GetCartItems()
         {
-            //var userId = HttpContext.GetUserId();
-
-            var userId = 1;
+            var userId = HttpContext.GetUserId();
 
             var result = await _userManager.GetUserCartInfo(userId);
 
             return result.Success ? Ok(result.Data) : BadRequest(result.ErrorMessage);
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpGet("get-purchase-history")]
         public async Task<IActionResult> GetPurchases()
         {
-            //var userId = HttpContext.GetUserId();
-
-            var userId = 1;
+            var userId = HttpContext.GetUserId();
 
             var result = await _userManager.GetPurchasesHistory(userId);
 
             return result.Success ? Ok(result.Data) : BadRequest(result.ErrorMessage);
         }
 
-
-
-       // [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpGet("get-customer-purchase/{customerId}")]
         public async Task<IActionResult> GetCustomerPurchases(long customerId)
         {
