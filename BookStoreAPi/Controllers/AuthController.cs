@@ -22,7 +22,8 @@ namespace BookStoreAPi.Controllers
         }
 
         [HttpPost("login")]
-
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Login(LoginModel login)
         {
             var loginResult = await _authManager.Login(login.Username.ToLower(), login.Password);
@@ -37,6 +38,7 @@ namespace BookStoreAPi.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> Logout()
         {
+
             return Ok();
         }
     }

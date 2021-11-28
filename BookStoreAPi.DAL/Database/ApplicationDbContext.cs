@@ -14,40 +14,49 @@ namespace BookStoreAPi.DAL.Database
 
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Book> Books { get; set; }
+
+        public DbSet<Cart> Carts { get; set; }
+        public DbSet<PurchaseHistory> PurchaseHistory { get; set;}
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>()
+                .HasOne(u => u.Cart)
+                .WithOne(c => c.User)
+                .HasForeignKey<Cart>(x => x.UserId);
+
+            modelBuilder.Entity<User>()
+                .HasOne(u => u.PurchaseHistory)
+                .WithOne(c => c.User)
+                .HasForeignKey<PurchaseHistory>(x => x.UserId);
 
 
-        //protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
-        //    modelBuilder.Entity<Post>()
-        //        .HasOne(x => x.User)
-        //        .WithMany(p => p.Posts);
+            modelBuilder.Entity<Cart>()
+                .HasMany(c => c.Books)
+                .WithOne(b => b.Cart);
 
-        //    modelBuilder.Entity<Post>()
-        //        .Property(p => p.TargetNetworks)
-        //        .HasConversion(
-        //            v => JsonSerializer.Serialize(v, null),
-        //            v => JsonSerializer.Deserialize<List<SocialNetworks>>(v, null),
-        //            new ValueComparer<IList<SocialNetworks>>(
-        //                (c1, c2) => c1.SequenceEqual(c2),
-        //                c => c.Aggregate(0, (a, v) => HashCode.Combine(a, v.GetHashCode())),
-        //                c => (IList<SocialNetworks>)c.ToList()));
 
-        //    modelBuilder.Entity<Photo>()
-        //        .HasOne(x => x.Post)
-        //        .WithMany(p => p.Photos);
+            modelBuilder.Entity<PurchaseHistory>()
+                .HasMany(c => c.Books)
+                .WithOne(b => b.PurchaseHistory);
 
-        //    modelBuilder.Entity<Post>()
-        //        .Property(p => p.Id)
-        //        .ValueGeneratedOnAdd();
+            modelBuilder.Entity<Book>()
+                .Property(x => x.Id)
+                .ValueGeneratedOnAdd();
 
-        //    modelBuilder.Entity<Schedule>()
-        //        .Property(p => p.Id)
-        //        .ValueGeneratedOnAdd();
+            modelBuilder.Entity<User>()
+                .Property(x => x.Id)
+                .ValueGeneratedOnAdd();
 
-        //    modelBuilder.Entity<User>()
-        //        .Property(p => p.Id)
-        //        .ValueGeneratedOnAdd();
+            modelBuilder.Entity<PurchaseHistory>()
+                .Property(x => x.Id)
+                .ValueGeneratedOnAdd();
 
-        //}
+            modelBuilder.Entity<Cart>()
+                .Property(x => x.Id)
+                .ValueGeneratedOnAdd();
+        }
+
     }
 }

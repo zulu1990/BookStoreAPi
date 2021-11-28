@@ -11,5 +11,7 @@ namespace BookStoreApi.Contracts.Requests
 
         [Required]
         public string Password { get; set; }
+
+        public string AdminSecret { get; set; }
     }
 }

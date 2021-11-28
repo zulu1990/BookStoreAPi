@@ -25,6 +25,7 @@ namespace BookStoreAPi.DAL.Repositories
         public async Task<Result<T>> Add(T entity)
         {
             var addedEntity = await _dbSet.AddAsync(entity);
+
             return Result<T>.Succeed(addedEntity.Entity);
         }
 
@@ -76,7 +77,7 @@ namespace BookStoreAPi.DAL.Repositories
             return foundEntity == null ? Result<T>.Fail("Not Found") : Result<T>.Succeed(foundEntity);
         }
 
-        public async Task<Result<IList<T>>> ListAsync(Expression<Func<T, bool>> expression = null, List<string> includes = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null)
+        public async Task<Result<IList<T>>> ListAsync(Expression<Func<T, bool>> expression = null, List<string> includes = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, int count = 0, bool trackChanges = false)
         {
             IQueryable<T> query = _dbSet;
 
@@ -87,13 +88,16 @@ namespace BookStoreAPi.DAL.Repositories
 
             if (orderBy != null)
                 query = orderBy(query);
+            
+            if(count > 0)
+               query =  query.Take(count);
 
-            var result = await query.AsNoTracking().ToListAsync();
+            var result = trackChanges ? await query.ToListAsync() : await query.AsNoTracking().ToListAsync();
 
             return result.Count > 0 ? Result<IList<T>>.Succeed(result) : Result<IList<T>>.Fail("Not Found");
         }
 
-        public async Task<Result<T>> GetByExpression(Expression<Func<T, bool>> expression, List<string> includes = null)
+        public async Task<Result<T>> GetByExpression(Expression<Func<T, bool>> expression, List<string> includes = null, bool trackChanges = false)
         {
             IQueryable<T> query = _dbSet;
             if (includes != null)
@@ -101,8 +105,8 @@ namespace BookStoreAPi.DAL.Repositories
                 query = includes.Aggregate(query, (current, include) => current.Include(include));
             }
 
-            var item = await query.AsNoTracking().FirstOrDefaultAsync(expression);
-
+            var item = trackChanges ? await query.FirstOrDefaultAsync(expression) : await query.AsNoTracking().FirstOrDefaultAsync(expression);
+            
             return item != null ? Result<T>.Succeed(item) : Result<T>.Fail("Not Found");
         }
     }

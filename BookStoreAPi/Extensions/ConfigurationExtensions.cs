@@ -1,4 +1,10 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using BookStoreAPi.BL.Interfaces;
+using BookStoreAPi.BL.Managers;
+using BookStoreAPi.DAL.Database;
+using BookStoreAPi.DAL.Interfaces;
+using BookStoreAPi.DAL.Repositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -15,7 +21,9 @@ namespace BookStoreAPi.Extensions
     {
         public static IServiceCollection ConfigureCore(this IServiceCollection services, IConfiguration config)
         {
-            services.AddControllers();
+            services.AddControllers()
+                .AddNewtonsoftJson(options =>
+                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             services.AddSwaggerGen(c =>
             {
@@ -62,13 +70,40 @@ namespace BookStoreAPi.Extensions
                 x.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config.GetSection("JwtTokenSecret").Value)),
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config.GetSection("Secrets:JwtToken").Value)),
                     ValidateIssuer = false,
                     ValidateAudience = false
                 };
             });
 
+            services.AddAutoMapper(typeof(Startup).Assembly);
+
             return services;
         }
+
+
+        public static void  ConfigureRepository(this IServiceCollection services, IConfiguration config)
+        {
+            services.AddDbContext<ApplicationDbContext>(options =>
+            {
+                options.UseSqlServer(config.GetConnectionString("DatabaseConnection"));
+            });
+
+            services.AddScoped<Func<ApplicationDbContext>>((provider) => provider.GetService<ApplicationDbContext>);
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+                        
+        }
+
+        public static IServiceCollection ConfigureServices(this IServiceCollection services)
+        {
+            services.AddScoped<IUserManager, UserManager>();
+            services.AddScoped<IAuthManager, AuthManager>();
+            services.AddScoped<IBookManager, BookManager>();
+
+            return services;
+        }
+
     }
 }

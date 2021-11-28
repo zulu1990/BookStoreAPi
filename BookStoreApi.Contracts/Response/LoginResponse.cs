@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BookStoreApi.Contracts.DTO;
 
 namespace BookStoreApi.Contracts.Response
 {
     public class LoginResponse
     {
+        public UserDto User { get; set; }
+        public string Token { get; set; }
     }
 }

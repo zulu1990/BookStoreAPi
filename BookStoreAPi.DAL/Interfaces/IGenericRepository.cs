@@ -20,9 +20,9 @@ namespace BookStoreAPi.DAL.Interfaces
         Task<Result<T>> GetById(long id);
 
         Task<Result<IList<T>>> ListAsync(Expression<Func<T, bool>> expression = null, List<string> includes = null,
-            Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null);
+            Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, int count = 0, bool trackChanges = false);
 
-        Task<Result<T>> GetByExpression(Expression<Func<T, bool>> expression, List<string> includes = null);
+        Task<Result<T>> GetByExpression(Expression<Func<T, bool>> expression, List<string> includes = null, bool trackChanges = false);
 
     }
 

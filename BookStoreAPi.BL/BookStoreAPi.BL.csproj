@@ -5,12 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.14.1" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.14.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\BookStoreApi.Contracts\BookStoreApi.Contracts.csproj" />
+    <ProjectReference Include="..\BookStoreAPi.DAL\BookStoreAPi.DAL.csproj" />
   </ItemGroup>
 
 </Project>

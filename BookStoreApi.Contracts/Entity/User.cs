@@ -14,5 +14,9 @@ namespace BookStoreApi.Contracts.Entity
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
         public Role Role { get; set; }
+
+        public Cart Cart { get; set; }
+        public PurchaseHistory PurchaseHistory { get; set; }
+
     }
 }
