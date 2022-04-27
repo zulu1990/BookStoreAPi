@@ -5,6 +5,10 @@
 
 trigger:
 - none
+parameters:
+  - name: message
+    type: string
+
 resources:
   pipelines:
     - pipeline: first
@@ -22,5 +26,5 @@ steps:
 
 - script: |
     echo Running mocked tests
-    echo See https://aka.ms/yaml
+    echo delivered ${{ parameters.message }}
   displayName: 'Run a multi-line script'
