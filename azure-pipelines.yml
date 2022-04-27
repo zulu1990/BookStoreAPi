@@ -8,7 +8,8 @@ trigger:
 parameters:
   - name: message
     type: string
-
+    default: i dont know what im doing
+    
 resources:
   pipelines:
     - pipeline: first
