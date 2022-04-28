@@ -1,0 +1,8 @@
+steps:
+  - task: PowerShell@2
+    inputs:
+    targetType: 'inline'
+    script: |
+       Write-Host "Inside Tepmlate"
+       Write-Host "if you see it its success"
+    displayName: Install Dependencies
