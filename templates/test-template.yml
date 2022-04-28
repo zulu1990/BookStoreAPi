@@ -3,6 +3,6 @@ steps:
     inputs:
     targetType: 'inline'
     script: |
-       python -m venv venv
-       pip3 install -r requirements.txt
+       Write-Host "Inside Tepmlate"
+       Write-Host "if you see it its success"
     displayName: Install Dependencies
